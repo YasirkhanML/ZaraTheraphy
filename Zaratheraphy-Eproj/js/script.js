@@ -90,41 +90,41 @@ var productSwiper = new Swiper(".productSwiper", {
   },
  
 });
+
 function validateForm() {
-    let isValid = true;
+  let name = document.getElementById("name").value.trim();
+  let email = document.getElementById("email").value.trim();
+  let message = document.getElementById("message").value.trim();
 
-    // Clear previous error messages
-    document.getElementById("nameError").textContent = "";
-    document.getElementById("emailError").textContent = "";
-    document.getElementById("messageError").textContent = "";
-
-    // Validate Name
-    const name = document.getElementById("name").value.trim();
-    if (name === "" || !/^[a-zA-Z\s]+$/.test(name)) {
-      document.getElementById("nameError").textContent = "Please enter a valid full name.";
-      isValid = false;
-    }
-
-    // Validate Email
-    const email = document.getElementById("email").value.trim();
-    if (email === "" || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
-      document.getElementById("emailError").textContent = "Please enter a valid email address.";
-      isValid = false;
-    }
-
-    // Validate Message
-    const message = document.getElementById("message").value.trim();
-    if (message === "" || message.length < 10) {
-      document.getElementById("messageError").textContent = "Message must be at least 10 characters long.";
-      isValid = false;
-    }
-
-    // If valid, show a success message
-    if (isValid) {
-      alert("Your message has been sent successfully!");
-      document.getElementById("contactForm").reset();
-    }
+  // 1. Blank Fields Check
+  if (name === "" || email === "" || message === "") {
+      alert("Error: All fields are required.");
+      return false;
   }
+
+  // 2. Name Validation (Only Alphabets)
+  if (!/^[a-zA-Z\s]+$/.test(name)) {
+      alert("Error: Name should contain only alphabets.");
+      return false;
+  }
+
+  // 3. Email Validation
+  if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+      alert("Error: Please enter a valid email address.");
+      return false;
+  }
+
+  // 4. Message Validation (At least 10 words)
+  if (message.split(" ").length < 10) {
+      alert("Error: Message should be at least 10 words long.");
+      return false;
+  }
+
+  // Success Message
+  alert("Your message has been sent successfully!");
+  document.getElementById("contactForm").reset();
+  return true;
+}
 
   function getLocation() {
     const output = document.getElementById("output");
